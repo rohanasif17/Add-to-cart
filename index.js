@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove , set , child} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://realtime-database-11775-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -8,6 +8,12 @@ const appSettings = {
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const shoppingListInDB = ref(database, "shoppingList")
+
+
+
+
+// const key = "username";
+// set(child(shoppingListInDB, key),null);
 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
@@ -18,7 +24,7 @@ addButtonEl.addEventListener("click", function() {
     
     push(shoppingListInDB, inputValue + " : " + categoryInput.value )
     
-    // clearInputFieldEl()
+    clearInputFieldEl()
 })
 
 onValue(shoppingListInDB, function(snapshot) {
@@ -43,9 +49,9 @@ function clearShoppingListEl() {
     shoppingListEl.innerHTML = ""
 }
 
-// function clearInputFieldEl() {
-//     inputFieldEl.value = ""
-// }
+function clearInputFieldEl() {
+    inputFieldEl.value = ""
+}
 
 function appendItemToShoppingListEl(item) {
     let itemID = item[0]
@@ -70,6 +76,26 @@ function appendItemToShoppingListEl(item) {
 
 
 
+const page = document.getElementById("container");
+const usernameInput = document.getElementById("usernameInput");
+const usernameContainer = document.getElementById("usernameContainer");
+const reqLine = document.getElementById("request")
+
+
+page.style.display = "none";
+reqLine.style.display = "none"
+
+
+let submit = document.getElementById("submit");
+submit.addEventListener("click", function() {
+const username = usernameInput.value.trim();
+  if (username === "") {
+    reqLine.style.display = "block"
+  } else {
+    usernameContainer.style.display = "none"; 
+    page.style.display = "block";
+  }
+});
 
 
 
@@ -112,8 +138,15 @@ categoryInput.addEventListener('focus', function() {
 addButtonEl.addEventListener('click', function(event) {
     event.preventDefault();
 
+
+
+
+   
     inputFieldEl.value = '';
     categoryInput.value = '';
+
+
+   
 });
 
          
