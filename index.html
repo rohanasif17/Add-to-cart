@@ -13,11 +13,18 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <div class="container">
+              <div id="usernameContainer">
+    <input type="text" id="usernameInput" placeholder="Enter your username" required>
+    <button id="submit">Submit</button>
+<h1 id="request">Please enter the Username!</h1>
+  </div>
+        
+         
+        <div id="container">
             <img src="https://media.tenor.com/ek8ccJEdkKkAAAAi/cat-noodles.gif">
-            <input type="text" id="input-field" placeholder="Bread">
+            <input type="text" id="input-field" placeholder="Bread" required>
                     <div class="dropdown">
-            <input type="text" id="categoryInput" placeholder="Click to select category" readonly required>
+            <input type="text" id="categoryInput" placeholder="Click to select category"  required>
             <div class="dropdown-content">
                 <a href="#" data-category="Fruit">Fruits</a>
                 <a href="#" data-category="Vegetable">Vegetable</a>
@@ -29,6 +36,11 @@
                 <a href="#" data-category="Dessert">Dessert</a>
                 <a href="#" data-category="Spices">Spices</a>
                 <a href="#" data-category="Sauce">Sauce</a>
+                
+              
+               
+             
+             
              
             </div>
         </div>
@@ -39,5 +51,9 @@
             </ul>
         </div>
         <script src="index.js" type="module"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<!-- Include other Firebase SDKs if needed (e.g., Firebase Authentication) -->
+
     </body>
 </html>
