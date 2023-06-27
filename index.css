@@ -5,9 +5,10 @@ html, body {
     background-color: #f7ffe6;
     color: black;
     user-select: none;
+    text-align: center;
 }
 
-.container {
+#container {
     display: flex;
     flex-direction: column;
     max-width: 320px;
@@ -30,7 +31,9 @@ input {
     font-family: 'Rubik', sans-serif;
     margin: 10px 0;
 }
-
+#add-button{
+    text-align: center
+}
 button {
     color: #FDFDFD;
     background-color: #9de600;
@@ -38,13 +41,14 @@ button {
     padding: 15px;
     border-radius: 8px;
     font-size: 20px;
-    text-align: center;
+    text-align: right;
     font-family: 'Rubik', sans-serif;
 }
 
 button:hover {
     background-color: #00e600;
     cursor: pointer;
+    
 }
 
 ul {
