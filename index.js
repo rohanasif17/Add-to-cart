@@ -16,7 +16,7 @@ const shoppingListEl = document.getElementById("shopping-list")
 addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
     
-    push(shoppingListInDB, inputValue + ":" + category)
+    push(shoppingListInDB, inputValue + " : " + categoryInput.value )
     
     // clearInputFieldEl()
 })
@@ -81,8 +81,7 @@ function appendItemToShoppingListEl(item) {
 
 
 
-var foodForm = document.getElementById('foodForm');
-var categoryInput = document.getElementById('categories');
+var categoryInput = document.getElementById('categoryInput');
 var dropdownLinks = document.querySelectorAll('.dropdown-content a');
 
 
@@ -113,18 +112,8 @@ categoryInput.addEventListener('focus', function() {
 addButtonEl.addEventListener('click', function(event) {
     event.preventDefault();
 
-    var food = inputFieldEl.value;
-    var category = categoryInput.value;
-
-    console.log('Food:', food);
-    console.log('Category:', category);
-
-   
     inputFieldEl.value = '';
     categoryInput.value = '';
-
-
-   
 });
 
          
