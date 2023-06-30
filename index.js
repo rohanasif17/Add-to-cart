@@ -11,17 +11,20 @@ const database = getDatabase(app);
 const inputFieldEl = document.getElementById("input-field");
 const addButtonEl = document.getElementById("add-button");
 const shoppingListEl = document.getElementById("shopping-list");
+const categoryEl = document.getElementById('category')
 
 let username = "";
 
 addButtonEl.addEventListener("click", function() {
   let inputValue = inputFieldEl.value.trim();
+  const category = categoryEl.value
 
   if (username && inputValue) {
     const newItem = {
       item: inputValue,
-      category: categoryInput.value.trim()
+      category: category.trim()
     };
+    
 
     push(ref(database, `shoppingList/${username}`), newItem);
     clearInputFieldEl();
@@ -36,8 +39,8 @@ function loadShoppingListForUser(user) {
       clearShoppingListEl();
 
       for (let itemID in shoppingList) {
-        let currentItem = shoppingList[itemID];
-        appendItemToShoppingListEl(itemID, currentItem);
+        let itemData = shoppingList[itemID];
+        appendItemToShoppingListEl(itemID, itemData);
       }
     } else {
       clearShoppingListEl();
@@ -52,7 +55,8 @@ function clearShoppingListEl() {
 
 function clearInputFieldEl() {
   inputFieldEl.value = "";
-  categoryInput.value = "";
+ 
+ 
 }
 
 function appendItemToShoppingListEl(itemID, itemData) {
@@ -88,41 +92,10 @@ submit.addEventListener("click", function() {
   }
 });
 
-var categoryInput = document.getElementById('categoryInput');
-var dropdownLinks = document.querySelectorAll('.dropdown-content a');
-
-dropdownLinks.forEach(function(link) {
-  link.addEventListener('click', function(event) {
-    event.preventDefault();
-
-    var selectedCategory = this.getAttribute('data-category');
-    categoryInput.value = selectedCategory;
-
-    var dropdownContent = this.parentNode;
-    dropdownContent.style.display = 'none';
-
-    categoryInput.focus();
-
-    dropdownLinks.forEach(function(otherLink) {
-      if (otherLink !== link) {
-        otherLink.parentNode.style.display = 'none';
-      }
-    });
-  });
-});
-
-categoryInput.addEventListener('focus', function() {
-  this.nextElementSibling.style.display = 'block';
-});
-
-
-
 addButtonEl.addEventListener('click', function(event) {
     event.preventDefault();
    
     inputFieldEl.value = '';
-    categoryInput.value = '';
-
-
    
+
 });       
