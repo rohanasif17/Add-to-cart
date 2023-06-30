@@ -1,152 +1,128 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove , set , child} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 const appSettings = {
-    databaseURL: "https://realtime-database-11775-default-rtdb.europe-west1.firebasedatabase.app/"
-}
+  databaseURL: "https://realtime-database-11775-default-rtdb.europe-west1.firebasedatabase.app/"
+};
 
-const app = initializeApp(appSettings)
-const database = getDatabase(app)
-const shoppingListInDB = ref(database, "shoppingList")
+const app = initializeApp(appSettings);
+const database = getDatabase(app);
 
+const inputFieldEl = document.getElementById("input-field");
+const addButtonEl = document.getElementById("add-button");
+const shoppingListEl = document.getElementById("shopping-list");
 
-
-
-// const key = "username";
-// set(child(shoppingListInDB, key),null);
-
-const inputFieldEl = document.getElementById("input-field")
-const addButtonEl = document.getElementById("add-button")
-const shoppingListEl = document.getElementById("shopping-list")
+let username = "";
 
 addButtonEl.addEventListener("click", function() {
-    let inputValue = inputFieldEl.value
-    
-    push(shoppingListInDB, inputValue + " : " + categoryInput.value )
-    
-    clearInputFieldEl()
-})
+  let inputValue = inputFieldEl.value.trim();
 
-onValue(shoppingListInDB, function(snapshot) {
+  if (username && inputValue) {
+    const newItem = {
+      item: inputValue,
+      category: categoryInput.value.trim()
+    };
+
+    push(ref(database, `shoppingList/${username}`), newItem);
+    clearInputFieldEl();
+  }
+});
+
+function loadShoppingListForUser(user) {
+  username = user;
+  onValue(ref(database, `shoppingList/${user}`), function(snapshot) {
     if (snapshot.exists()) {
-        let itemsArray = Object.entries(snapshot.val())
-    
-        clearShoppingListEl()
-        
-        for (let i = 0; i < itemsArray.length; i++) {
-            let currentItem = itemsArray[i]
-            let currentItemID = currentItem[0]
-            let currentItemValue = currentItem[1]
-            
-            appendItemToShoppingListEl(currentItem)
-        }    
+      let shoppingList = snapshot.val();
+      clearShoppingListEl();
+
+      for (let itemID in shoppingList) {
+        let currentItem = shoppingList[itemID];
+        appendItemToShoppingListEl(itemID, currentItem);
+      }
     } else {
-        shoppingListEl.innerHTML = "No items here... yet"
+      clearShoppingListEl();
+      shoppingListEl.innerHTML = "No items here... yet";
     }
-})
+  });
+}
 
 function clearShoppingListEl() {
-    shoppingListEl.innerHTML = ""
+  shoppingListEl.innerHTML = "";
 }
 
 function clearInputFieldEl() {
-    inputFieldEl.value = ""
+  inputFieldEl.value = "";
+  categoryInput.value = "";
 }
 
-function appendItemToShoppingListEl(item) {
-    let itemID = item[0]
-    let itemValue = item[1]
-    
-    let newEl = document.createElement("li")
-    
-    newEl.textContent = itemValue
-    
-    newEl.addEventListener("click", function() {
-        let exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`)
-        
-        remove(exactLocationOfItemInDB)
-    })
-    
-    shoppingListEl.append(newEl)
+function appendItemToShoppingListEl(itemID, itemData) {
+  let newEl = document.createElement("li");
+
+  newEl.textContent = itemData.item + " : " + itemData.category;
+
+  newEl.addEventListener("click", function() {
+    let exactLocationOfItemInDB = ref(database, `shoppingList/${username}/${itemID}`);
+    remove(exactLocationOfItemInDB);
+  });
+
+  shoppingListEl.append(newEl);
 }
-
-
-
-
-
-
 
 const page = document.getElementById("container");
 const usernameInput = document.getElementById("usernameInput");
 const usernameContainer = document.getElementById("usernameContainer");
-const reqLine = document.getElementById("request")
-
+const reqLine = document.getElementById("request");
 
 page.style.display = "none";
-reqLine.style.display = "none"
-
+reqLine.style.display = "none";
 
 let submit = document.getElementById("submit");
 submit.addEventListener("click", function() {
-const username = usernameInput.value.trim();
+  const username = usernameInput.value.trim();
   if (username === "") {
-    reqLine.style.display = "block"
+    reqLine.style.display = "block";
   } else {
-    usernameContainer.style.display = "none"; 
+    usernameContainer.style.display = "none";
     page.style.display = "block";
+    loadShoppingListForUser(username);
   }
 });
-
-
-
-
-
-
-
-
-
-
 
 var categoryInput = document.getElementById('categoryInput');
 var dropdownLinks = document.querySelectorAll('.dropdown-content a');
 
-
 dropdownLinks.forEach(function(link) {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
+  link.addEventListener('click', function(event) {
+    event.preventDefault();
 
-        var selectedCategory = this.getAttribute('data-category');
-        categoryInput.value = selectedCategory;
+    var selectedCategory = this.getAttribute('data-category');
+    categoryInput.value = selectedCategory;
 
-        var dropdownContent = this.parentNode;
-        dropdownContent.style.display = 'none';
+    var dropdownContent = this.parentNode;
+    dropdownContent.style.display = 'none';
 
-        categoryInput.focus();
+    categoryInput.focus();
 
-        dropdownLinks.forEach(function(otherLink) {
-            if (otherLink !== link) {
-                otherLink.parentNode.style.display = 'none';
-            }
-        });
+    dropdownLinks.forEach(function(otherLink) {
+      if (otherLink !== link) {
+        otherLink.parentNode.style.display = 'none';
+      }
     });
+  });
 });
 
 categoryInput.addEventListener('focus', function() {
-    this.nextElementSibling.style.display = 'block';
+  this.nextElementSibling.style.display = 'block';
 });
+
+
 
 addButtonEl.addEventListener('click', function(event) {
     event.preventDefault();
-
-
-
-
    
     inputFieldEl.value = '';
     categoryInput.value = '';
 
 
    
-});
-
-         
+});       
