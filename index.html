@@ -1,59 +1,57 @@
 <!doctype html>
 <html>
-    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-        <title>Add to Cart</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <link rel="stylesheet" href="index.css">
-    </head>
-    <body>
-              <div id="usernameContainer">
-    <input type="text" id="usernameInput" placeholder="Enter your username" required>
-    <button id="submit">Submit</button>
-<h1 id="request">Please enter the Username!</h1>
-  </div>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <title>Add to Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="usernameContainer">
+        <input type="text" id="usernameInput" placeholder="Enter your username" required>
+        <button id="submit">Submit</button>
+        <h1 id="request">Please enter the Username!</h1>
+    </div>
+
+
+    <div id="container">
+        <img src="https://media.tenor.com/ek8ccJEdkKkAAAAi/cat-noodles.gif">
+        <input type="text" id="input-field" placeholder="Bread" required>
+        <div class="dropdown">
+
+            <select name="category" id="category">
+                <option value="Fruits">Fruits</option>
+                <option value="Vegetable">Vegetable</option>
+                <option value="Meat and Poultry">Meat and Poultry</option>
+                <option value="Seafood">Seafood</option>
+                <option value="Dairy product">Dairy product</option>
+                <option value="Grain">Grain</option>
+                <option value="Seed or Nut">Seed or Nut</option>
+                <option value="Dessert">Dessert</option>
+                <option value="Seed or Nut">Spices</option>
+                <option value="Dessert">Sauce</option>
+            </select>
+           
+        </div>
         
-         
-        <div id="container">
-            <img src="https://media.tenor.com/ek8ccJEdkKkAAAAi/cat-noodles.gif">
-            <input type="text" id="input-field" placeholder="Bread" required>
-                    <div class="dropdown">
-            <input type="text" id="categoryInput" placeholder="Click to select category"  required>
-            <div class="dropdown-content">
-                <a href="#" data-category="Fruit">Fruits</a>
-                <a href="#" data-category="Vegetable">Vegetable</a>
-                <a href="#" data-category="Grain">Grain</a>
-                <a href="#" data-category="Meat and Poultry">Meat and Poultry</a>
-                <a href="#" data-category="Seafood">Seafood</a>
-                <a href="#" data-category="Dairy product">Dairy product</a>
-                <a href="#" data-category="Seed or Nut">Seed or Nut</a>
-                <a href="#" data-category="Dessert">Dessert</a>
-                <a href="#" data-category="Spices">Spices</a>
-                <a href="#" data-category="Sauce">Sauce</a>
-                
-              
-               
-             
-             
-             
-            </div>
-        </div>
+        <button id="add-button">Add to cart</button>
+        <ul id="shopping-list">
+        </ul>
+    </div>
+    <script src="index.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Include other Firebase SDKs if needed (e.g., Firebase Authentication) -->
 
+</body>
 
-            <button id="add-button">Add to cart</button>
-            <ul id="shopping-list">
-            </ul>
-        </div>
-        <script src="index.js" type="module"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<!-- Include other Firebase SDKs if needed (e.g., Firebase Authentication) -->
-
-    </body>
 </html>
